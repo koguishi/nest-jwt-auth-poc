@@ -96,3 +96,51 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+# POC JWT Authentication with NestJS
+
+O ambiente utiliza **Docker Compose** para subir 2 containers:
+* Banco de Dados PostgreSql
+* Aplicação API Rest
+
+## Serviços
+
+* **API** — aplicação principal em Node + NestJS.
+* **PostgreSQL** — banco de dados relacional.
+
+## Pré-requisitos
+
+* [Docker](https://docs.docker.com/get-docker/)
+* [Docker Compose](https://docs.docker.com/compose/install/)
+
+## Subindo o ambiente
+
+```bash
+docker compose up -d
+```
+
+Isso iniciará todos os containers necessários.
+
+## Acesso aos serviços
+
+* **Swagger**: [http://localhost:8080/swagger/index.html](http://localhost:8080/swagger/index.html)
+* **PostgreSQL**: localhost:5433 (`user: dev`, `password: dev`)
+## Inicialização do banco de dados
+
+Migrations roda automaticamente ao subir o container da API.
+
+## Testando a API
+
+Exemplo de requisição:
+
+```bash
+curl http://localhost:3000/auth/register
+```
+
+## Encerrando os containers
+
+```bash
+docker compose down
+```
+
+Isso remove os containers, mas mantém volumes e dados persistidos.
