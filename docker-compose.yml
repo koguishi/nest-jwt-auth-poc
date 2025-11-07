@@ -8,8 +8,37 @@ services:
       POSTGRES_PASSWORD: dev
       POSTGRES_DB: mydb
     ports:
-      - "5433:5433"
+      - "5433:5432" # externo:interno (ajuste importante!)
     volumes:
       - db-data:/var/lib/postgresql/data
+    networks:
+      - nest-network
+
+  api:
+    build: .
+    container_name: nest-api
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "3001:3000" # externo:interno (ajuste importante!)
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: dev
+      DB_PASS: dev
+      DB_NAME: mydb
+      JWT_SECRET: mysupersecret
+      NODE_ENV: development
+    command: node dist/main.js
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - nest-network
+
 volumes:
   db-data:
+
+networks:
+  nest-network:
